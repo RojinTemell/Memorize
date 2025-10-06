@@ -15,6 +15,7 @@ struct EmojiMemoryGameView: View {
         VStack{
             ScrollView{
                 cards
+                    .animation(.default, value: viewmodel.cards )
             }
             Spacer()
             Button("Shuffle"){
@@ -28,41 +29,19 @@ struct EmojiMemoryGameView: View {
 
     var cards :some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120,),spacing: 0)],spacing: 0){
-            ForEach(viewmodel.cards.indices,id:\.self){index in
-                CardView(viewmodel.cards[index])
+            ForEach(viewmodel.cards){card in
+                CardView(card)
                     .aspectRatio(2/3,contentMode:.fit )
                     .padding(4)
+                    .onTapGesture {
+                        viewmodel.choose(card)
+                    }
+
             }
         } .foregroundStyle(.orange)
 
     }
 
-//    var cardCountAdjusters :some View{
-//        HStack{
-//            cardRemover
-//            Spacer()
-//            cardAdder
-//        }.imageScale(.large)
-//            .font(.largeTitle)
-//    }
-//
-//    func cardCountAdjucter(by offset:Int , symbol:String )->some View{
-//        Button(action:{
-//                cardCount += offset
-//        },label: {
-//            Image(systemName: symbol)
-//        })
-//        .disabled(cardCount + offset < 1 || cardCount + offset > emojies.count)
-//    }
-//
-//    var cardRemover:some View{
-//        cardCountAdjucter(by: -1, symbol: "bag.badge.minus.fill")
-//
-//    }
-//    var cardAdder:some View{
-//        return cardCountAdjucter(by: +1, symbol: "bag.badge.plus.fill")
-//
-//    }
 
 }
 
