@@ -66,11 +66,8 @@ struct CardView :View{
             base.fill().opacity( card.isFaceup ? 0 : 1)
 
         }
-       // .onTapGesture {
-            // isFaceUp = !isFaceUp
-           // isFaceUp.toggle()
+        .opacity( card.isFaceup || !card.isMacthed ?1:0)
 
-        //}
     }
 }
 
